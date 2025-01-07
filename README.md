@@ -1,6 +1,6 @@
 # Build
 
-0. `git clone TODO && cd TODO`
+0. `git clone https://github.com/polka125/sos-sdp.git && cd sos-sdp`
 1. Obtain a MOSEK license key from https://www.mosek.com/products/academic-licenses/
 2. Replace the `REPLACE_ME_WITH_mosek.lic` file with `mosek.lic` file with a key obtained on the previous step
 3. `chmod +x build.sh run.sh`
