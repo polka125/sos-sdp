@@ -1,0 +1,8 @@
+// proving 1.6 bound instead of log_2(3) = 1.58
+real n, m1, m2;
+
+function f[1, 8];
+
+if { n >= 1; m1 ^ 5 == n; m2 ^ 5 == (n / 2) } => { f(m1) >= 3 * f(m2) + n + 1 }
+
+if { n >= 0; n <= 2 } => { f(n) >= 1 }

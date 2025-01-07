@@ -1,0 +1,19 @@
+real X, Ls2, L2, L3, Ls1, L1;
+function eq[2, 1], nub[2, 3], remove[3, 1];
+if { L1==0 } => { eq(L1,L2) >= 1 }
+if { L1==0 } => { eq(L1,L2) <= 1 }
+if { L1>=1; L2==0 } => { eq(L1,L2) >= 1 }
+// if { L1>=1; L2==0 } => { eq(L1,L2) <= 1 }
+if { L1>=1; L2>=1; Ls1==L1-1; Ls2==L2-1 } => { eq(L1,L2) >= 1 + eq(Ls1,Ls2) }
+if { L1>=1; L2>=1; Ls1==L1-1; Ls2==L2-1 } => { eq(L1,L2) <= 1 + eq(Ls1,Ls2) }
+if { L1==0 } => { nub(L1,L2) >= 1 }
+if { L1==0 } => { nub(L1,L2) <= 1 }
+if { L1>=1; Ls1 == L1-1;  L3 <= Ls1 } => { nub(L1,L2) >= 1 + remove(X,Ls1,L2) + nub(L3,L2) }
+// if { L1>=1; Ls1 == L1-1;  L3 <= Ls1 } => { nub(L1,L2) <= 1 + remove(X,Ls1,L2) + nub(L3,L2) }
+if { L1==0 } => { remove(X,L1,L2) >= 1 }
+if { L1==0 } => { remove(X,L1,L2) <= 1 }
+if { L1>=1; Ls1 == L1-1 } => { remove(X,L1,L2) >= 1 + eq(X,L2) + remove(X,Ls1,L2) }
+// if { L1>=1; Ls1 == L1-1 } => { remove(X,L1,L2) <= 1 + eq(X,L2) + remove(X,Ls1,L2) }
+if { L1>=1; Ls1 == L1-1 } => { remove(X,L1,L2) >= 1 + remove(X,Ls1,L2) }
+// if { L1>=1; Ls1 == L1-1 } => { remove(X,L1,L2) <= 1 + remove(X,Ls1,L2) }
+

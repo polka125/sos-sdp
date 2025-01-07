@@ -1,0 +1,6 @@
+real x, y, m;
+function G[2, 2];
+
+if { y - x <= 0 } => { G(x, y) >= 0 }
+if { y - x >= 2; (x + y) - 2 <= 2 * m; 2*m <= x + y; x >= 0; y >= 0 } =>
+{ G(x, y) >= y - x + G(x, m) + G(m + 1, y) }

@@ -1,0 +1,52 @@
+real  I, B2, B1, Y, X, R;
+function mult3[3, 2], mult[2, 2], add[2, 1], out_mult[2, 2], outadd[2, 2], addp[3, 1], bitToInt[1, 2], bitToIntp[2, 2], sum[3, 1], subp[3, 1], diff[3, 2], leq[2, 1], compare[2, 1];
+if { 1 >= 0 } => { mult3(R,B1,I) >= 1 + mult(R,B1) + mult(R,B1) }
+// if { 1 >= 0 } => { mult3(R,B1,I) <= 1 + mult(R,B1) + mult(R,B1) }
+if { B1==0 } => { mult(B1,B2) >= 1 }
+// if { B1==0 } => { mult(B1,B2) <= 1 }
+if { B1>=1; I >=1+B1-1 } => { mult(B1,B2) >= 1 + mult(B1-1,B2) }
+// if { B1>=1; I >=1+B1-1 } => { mult(B1,B2) <= 1 + mult(B1-1,B2) }
+if { B1>=1; I <= B1-1+1 } => { mult(B1,B2) >= 1 + mult(B1-1,B2) + add(B2,I) }
+// if { B1>=1; I <= B1-1+1 } => { mult(B1,B2) <= 1 + mult(B1-1,B2) + add(B2,I) }
+if { B1==0 } => { out_mult(B1,B2) >= 0 }
+// if { B1==0 } => { out_mult(B1,B2) <= 0 }
+if { B1>=1 } => { out_mult(B1,B2) >= 1 + out_mult(B1-1,B2) }
+// if { B1>=1 } => { out_mult(B1,B2) <= 1 + out_mult(B1-1,B2) }
+if { B1>=1; I <= B1-1+1 } => { out_mult(B1,B2) >= 0 + out_mult(B1-1,B2) + outadd(B2,I) }
+// if { B1>=1; I <= B1-1+1 } => { out_mult(B1,B2) <= 0 + out_mult(B1-1,B2) + outadd(B2,I) }
+if { I==0 } => { add(B1,B2) >= 1 + addp(B1,B2,I) }
+if { I==0 } => { add(B1,B2) <= 1 + addp(B1,B2,I) }
+
+// redundant:
+if { I==1 } => { bitToInt(R) >= 1 + bitToIntp(R,I) }
+// if { I==1 } => { bitToInt(R) <= 1 + bitToIntp(R,I) }
+if { B1==0 } => { bitToIntp(B1,I) >= 1 }
+// if { B1==0 } => { bitToIntp(B1,I) <= 1 }
+if { B1>=1 } => { bitToIntp(B1,I) >= 1 + bitToIntp(B1-1,I*2) }
+// if { B1>=1 } => { bitToIntp(B1,I) <= 1 + bitToIntp(B1-1,I*2) }
+
+if { B1==0 } => { addp(B1,B2,R) >= 1 }
+// if { B1==0 } => { addp(B1,B2,R) <= 1 }
+if { B1>=1; B2==0 } => { addp(B1,B2,R) >= 1 }
+// if { B1>=1; B2==0 } => { addp(B1,B2,R) <= 1 }
+if { B1>=1; B2>=1 } => { addp(B1,B2,R) >= 1 + sum(X,Y,R) + addp(B1-1,B2-1,I) }
+// if { B1>=1; B2>=1 } => { addp(B1,B2,R) <= 1 + sum(X,Y,R) + addp(B1-1,B2-1,I) }
+if { 1 >= 0 } => { sum(X,Y,R) >= 1 }
+// if { 1 >= 0 } => { sum(X,Y,R) <= 1 }
+if { B1==0 } => { subp(B1,B2,R) >= 1 }
+// if { B1==0 } => { subp(B1,B2,R) <= 1 }
+if { B1>=1; B2==0 } => { subp(B1,B2,R) >= 1 }
+// if { B1>=1; B2==0 } => { subp(B1,B2,R) <= 1 }
+if { B1>=1; B2>=1 } => { subp(B1,B2,R) >= 1 + diff(X,Y,R) + subp(B1-1,B2-1,I) }
+// if { B1>=1; B2>=1 } => { subp(B1,B2,R) <= 1 + diff(X,Y,R) + subp(B1-1,B2-1,I) }
+if { 1 >= 0 } => { diff(R,B1,I) >= 1 }
+// if { 1 >= 0 } => { diff(R,B1,I) <= 1 }
+if { B1>=0; B2>=0 } => { leq(B1,B2) >= 0 + compare(B1,B2) }
+// if { B1>=0; B2>=0 } => { leq(B1,B2) <= 0 + compare(B1,B2) }
+if { B1==0 } => { compare(B1,B2) >= 1 }
+// if { B1==0 } => { compare(B1,B2) <= 1 }
+if { B1>=1; B2==0 } => { compare(B1,B2) >= 1 }
+// if { B1>=1; B2==0 } => { compare(B1,B2) <= 1 }
+if { B1>=1; B2>=1 } => { compare(B1,B2) >= 1 + compare(B1-1,B2-1) }
+// if { B1>=1; B2>=1 } => { compare(B1,B2) <= 1 + compare(B1-1,B2-1) }
+

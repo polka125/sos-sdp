@@ -1,0 +1,32 @@
+real B, A, C, X;
+
+function lcs[2, 2], lcstable[2, 2], firstline[1, 1], newline[3, 1], out1_lcstable[2, 3], out2_lcstable[2, 3], right[1, 0], max[2, 0], out_newline[3, 3];
+
+if { A>=0; B>=0 } => { lcs(A,B) >= 1 + lcstable(A,B) }
+if { A>=0; B>=0 } => { lcs(A,B) <= 1 + lcstable(A,B) }
+if { A==0 } => { lcstable(A,B) >= 1 + firstline(B) }
+if { A==0 } => { lcstable(A,B) <= 1 + firstline(B) }
+if { A>=1 } => { lcstable(A,B) >= 1 + newline(X,B,B) + lcstable(A-1,B) }
+if { A>=1 } => { lcstable(A,B) <= 1 + newline(X,B,B) + lcstable(A-1,B) }
+if { A==0 } => { out1_lcstable(A,B) >= 1 }
+if { A==0 } => { out1_lcstable(A,B) <= 1 }
+if { A>=1 } => { out1_lcstable(A,B) >= 1 + out1_lcstable(A-1,B) }
+if { A>=1 } => { out1_lcstable(A,B) <= 1 + out1_lcstable(A-1,B) }
+if { A>=1 } => { out1_lcstable(A,B) >= 1 + out1_lcstable(A-1,B) }
+if { A>=1 } => { out1_lcstable(A,B) <= 1 + out1_lcstable(A-1,B) }
+if { A==0 } => { out2_lcstable(A,B) >= B }
+if { A==0 } => { out2_lcstable(A,B) <= B }
+if { A>=1 } => { out2_lcstable(A,B) >= 0 + out2_lcstable(A-1,B) }
+if { A>=1 } => { out2_lcstable(A,B) <= 0 + out2_lcstable(A-1,B) }
+if { A==0 } => { firstline(A) >= 1 }
+if { A>=1 } => { firstline(A) >= 1 + firstline(A-1) }
+if { C==0 } => { newline(A,B,C) >= 1 }
+if { C>=1 } => { newline(A,B,C) >= 1 }
+if { C>=1; B>=1 } => { newline(A,B,C) >= 1 + right(C-1) + right(B-1) + max(1,1) + newline(A,B-1,C-1) }
+if { C>=1; B>=1 } => { newline(A,B,C) >= 1 + right(C-1) + right(B-1) + newline(A,B-1,C-1) }
+if { C==0 } => { out_newline(A,B,C) >= 0 }
+if { C>=1; B==0 } => { out_newline(A,B,C) >= 0 }
+if { C>=1; B>=1 } => { out_newline(A,B,C) >= 1 + out_newline(A,B-1,C-1) }
+if { 1 >= 0 } => { right(A) >= 1 }
+if { 1 >= 0 } => { max(A,B) >= 1 }
+

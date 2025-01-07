@@ -1,0 +1,15 @@
+real L2, L1, L3, L;
+function zip3[3, 1], group3[1, 1];
+if { L1==0 } => { zip3(L1,L2,L3) >= 0 }
+if { L1==0 } => { zip3(L1,L2,L3) <= 0 }
+if { L1>=1; L2==0 } => { zip3(L1,L2,L3) >= 0 }
+// if { L1>=1; L2==0 } => { zip3(L1,L2,L3) <= 0 }
+if { L1>=1; L2>=1; L3==0 } => { zip3(L1,L2,L3) >= 0 }
+// if { L1>=1; L2>=1; L3==0 } => { zip3(L1,L2,L3) <= 0 }
+if { L1>=1; L2>=1; L3>=1 } => { zip3(L1,L2,L3) >= 1 + zip3(L1-1,L2-1,L3-1) }
+if { L1>=1; L2>=1; L3>=1 } => { zip3(L1,L2,L3) <= 1 + zip3(L1-1,L2-1,L3-1) }
+if { L <= 3; L * L <= 9 } => { group3(L) >= 0 }
+// if { L<=3 } => { group3(L) <= 0 }
+if { L>=4 } => { group3(L) >= 1 + group3(L-3) }
+if { L>=4 } => { group3(L) <= 1 + group3(L-3) }
+
