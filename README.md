@@ -1,3 +1,9 @@
+# Prerequisuts 
+1. `python >= 3.9`
+2. `pip`
+3. `docker`
+
+
 # Build
 
 0. `git clone https://github.com/polka125/sos-sdp.git && cd sos-sdp`
